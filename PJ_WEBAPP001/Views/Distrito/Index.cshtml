@@ -1,0 +1,46 @@
+﻿@model IEnumerable<PJ_WEBAPP001.Models.DISTRITO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center"> :::::: Mantenimiento de Distritos ::::::</h2>
+
+<p>
+    @Html.ActionLink("Registrar Distrito", "Create", "", new { @class = "btn btn-success" })
+</p>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th class="text-center">
+            Descripcion Distrito
+        </th>
+        <th class="text-center">Detalles</th>
+        <th class="text-center">Actualizar</th>
+        <th class="text-center">Dar de Baja</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.DES_DIS)
+        </td>
+        <td style="text-align:center" class="text-right">
+                <a class="btn btn-success" href="../Marcas/Details/@item.IDE_DIS" title="Detalles">
+                    <i class="glyphicon glyphicon-eye-open "></i>
+                </a>
+            </td>
+            <td style="text-align:center" class="text-right">
+                <a class="btn btn-info" href="../Marcas/Edit/@item.IDE_DIS" title="Editar">
+                    <i class="glyphicon glyphicon-cog"></i>
+                </a>
+            </td>
+            <td style="text-align:center" class="text-right">
+                <a class="btn btn-danger" href="../Marcas/Delete/@item.IDE_DIS" title="Borrar">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PJ_WEBAPP001.Models.SOLICITUD>
+
+@{
+    ViewBag.Title = "Solicitudes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2 class="text-center">:::: Listado de Solicitudes ::::::</h2>
+<br />
+<h2>Solicitudes</h2>
+
+<hr />
+<br />
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            CODIGO SOLICITUD
+        </th>
+        <th>
+            Nombre del Trabajador Asignado
+        </th>
+        <th>
+            Fecha de Solicitud Generada
+        </th>
+        <th>
+            Estado de solicitud
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.NUM_SOL)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.TRABAJADOR.NOM_TRA)
+                @Html.DisplayFor(modelItem => item.TRABAJADOR.APE_TRA)
+            </td>
+            <td class="text-center">
+                @item.FEC_SOL.ToShortDateString()
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.EST_SOL)
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+

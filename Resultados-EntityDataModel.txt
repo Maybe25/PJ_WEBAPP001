@@ -1,0 +1,3 @@
+﻿Archivo de modelo generado: ModelActivo.edmx.
+La carga de los metadatos desde la base de datos tardó 00:00:01.0422595.
+La generación del modelo tardó 00:00:01.8845679.

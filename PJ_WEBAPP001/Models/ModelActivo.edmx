@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BD_ActivoFijosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ACTIVO">
+          <Key>
+            <PropertyRef Name="IDE_ACT" />
+          </Key>
+          <Property Name="IDE_ACT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DES_ACT" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDE_MAR" Type="int" />
+          <Property Name="IDE_CAT" Type="int" />
+          <Property Name="STO_PRO" Type="int" Nullable="false" />
+          <Property Name="IMG_PRO" Type="image" />
+        </EntityType>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="IDE_CAT" />
+          </Key>
+          <Property Name="IDE_CAT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DES_CAT" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DETALLESOLICITUD">
+          <Key>
+            <PropertyRef Name="IDE_DET" />
+          </Key>
+          <Property Name="IDE_DET" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NUM_SOL" Type="int" />
+          <Property Name="IDE_ACT" Type="int" />
+          <Property Name="CAN_ART" Type="int" />
+        </EntityType>
+        <EntityType Name="DISTRITO">
+          <Key>
+            <PropertyRef Name="IDE_DIS" />
+          </Key>
+          <Property Name="IDE_DIS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DES_DIS" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MARCAS">
+          <Key>
+            <PropertyRef Name="IDE_MAR" />
+          </Key>
+          <Property Name="IDE_MAR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DES_MAR" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SOLICITUD">
+          <Key>
+            <PropertyRef Name="NUM_SOL" />
+          </Key>
+          <Property Name="NUM_SOL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FEC_SOL" Type="date" Nullable="false" />
+          <Property Name="IDE_TRA" Type="int" />
+          <Property Name="EST_SOL" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TRABAJADOR">
+          <Key>
+            <PropertyRef Name="IDE_TRA" />
+          </Key>
+          <Property Name="IDE_TRA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOM_TRA" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="APE_TRA" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="DIR_TRA" Type="varchar" MaxLength="50" />
+          <Property Name="TEL_TRA" Type="varchar" MaxLength="50" />
+          <Property Name="IDE_DIS" Type="int" />
+          <Property Name="COR_TRA" Type="varchar" MaxLength="50" />
+          <Property Name="IMG_VEN" Type="image" />
+        </EntityType>
+        <Association Name="FK__ACTIVO__IDE_CAT__2B3F6F97">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="0..1" />
+          <End Role="ACTIVO" Type="Self.ACTIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="IDE_CAT" />
+            </Principal>
+            <Dependent Role="ACTIVO">
+              <PropertyRef Name="IDE_CAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ACTIVO__IDE_MAR__2A4B4B5E">
+          <End Role="MARCAS" Type="Self.MARCAS" Multiplicity="0..1" />
+          <End Role="ACTIVO" Type="Self.ACTIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARCAS">
+              <PropertyRef Name="IDE_MAR" />
+            </Principal>
+            <Dependent Role="ACTIVO">
+              <PropertyRef Name="IDE_MAR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLESO__IDE_A__34C8D9D1">
+          <End Role="ACTIVO" Type="Self.ACTIVO" Multiplicity="0..1" />
+          <End Role="DETALLESOLICITUD" Type="Self.DETALLESOLICITUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACTIVO">
+              <PropertyRef Name="IDE_ACT" />
+            </Principal>
+            <Dependent Role="DETALLESOLICITUD">
+              <PropertyRef Name="IDE_ACT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLESO__NUM_S__33D4B598">
+          <End Role="SOLICITUD" Type="Self.SOLICITUD" Multiplicity="0..1" />
+          <End Role="DETALLESOLICITUD" Type="Self.DETALLESOLICITUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOLICITUD">
+              <PropertyRef Name="NUM_SOL" />
+            </Principal>
+            <Dependent Role="DETALLESOLICITUD">
+              <PropertyRef Name="NUM_SOL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SOLICITUD__IDE_T__30F848ED">
+          <End Role="TRABAJADOR" Type="Self.TRABAJADOR" Multiplicity="0..1" />
+          <End Role="SOLICITUD" Type="Self.SOLICITUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRABAJADOR">
+              <PropertyRef Name="IDE_TRA" />
+            </Principal>
+            <Dependent Role="SOLICITUD">
+              <PropertyRef Name="IDE_TRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRABAJADO__IDE_D__2E1BDC42">
+          <End Role="DISTRITO" Type="Self.DISTRITO" Multiplicity="0..1" />
+          <End Role="TRABAJADOR" Type="Self.TRABAJADOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISTRITO">
+              <PropertyRef Name="IDE_DIS" />
+            </Principal>
+            <Dependent Role="TRABAJADOR">
+              <PropertyRef Name="IDE_DIS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_ActivoFijosModelStoreContainer">
+          <EntitySet Name="ACTIVO" EntityType="Self.ACTIVO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLESOLICITUD" EntityType="Self.DETALLESOLICITUD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DISTRITO" EntityType="Self.DISTRITO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MARCAS" EntityType="Self.MARCAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SOLICITUD" EntityType="Self.SOLICITUD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRABAJADOR" EntityType="Self.TRABAJADOR" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ACTIVO__IDE_CAT__2B3F6F97" Association="Self.FK__ACTIVO__IDE_CAT__2B3F6F97">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="ACTIVO" EntitySet="ACTIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ACTIVO__IDE_MAR__2A4B4B5E" Association="Self.FK__ACTIVO__IDE_MAR__2A4B4B5E">
+            <End Role="MARCAS" EntitySet="MARCAS" />
+            <End Role="ACTIVO" EntitySet="ACTIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLESO__IDE_A__34C8D9D1" Association="Self.FK__DETALLESO__IDE_A__34C8D9D1">
+            <End Role="ACTIVO" EntitySet="ACTIVO" />
+            <End Role="DETALLESOLICITUD" EntitySet="DETALLESOLICITUD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLESO__NUM_S__33D4B598" Association="Self.FK__DETALLESO__NUM_S__33D4B598">
+            <End Role="SOLICITUD" EntitySet="SOLICITUD" />
+            <End Role="DETALLESOLICITUD" EntitySet="DETALLESOLICITUD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SOLICITUD__IDE_T__30F848ED" Association="Self.FK__SOLICITUD__IDE_T__30F848ED">
+            <End Role="TRABAJADOR" EntitySet="TRABAJADOR" />
+            <End Role="SOLICITUD" EntitySet="SOLICITUD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRABAJADO__IDE_D__2E1BDC42" Association="Self.FK__TRABAJADO__IDE_D__2E1BDC42">
+            <End Role="DISTRITO" EntitySet="DISTRITO" />
+            <End Role="TRABAJADOR" EntitySet="TRABAJADOR" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_ActivoFijosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ACTIVO">
+          <Key>
+            <PropertyRef Name="IDE_ACT" />
+          </Key>
+          <Property Name="IDE_ACT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DES_ACT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDE_MAR" Type="Int32" />
+          <Property Name="IDE_CAT" Type="Int32" />
+          <Property Name="STO_PRO" Type="Int32" Nullable="false" />
+          <Property Name="IMG_PRO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="CATEGORIA" Relationship="Self.FK__ACTIVO__IDE_CAT__2B3F6F97" FromRole="ACTIVO" ToRole="CATEGORIA" />
+          <NavigationProperty Name="MARCAS" Relationship="Self.FK__ACTIVO__IDE_MAR__2A4B4B5E" FromRole="ACTIVO" ToRole="MARCAS" />
+          <NavigationProperty Name="DETALLESOLICITUD" Relationship="Self.FK__DETALLESO__IDE_A__34C8D9D1" FromRole="ACTIVO" ToRole="DETALLESOLICITUD" />
+        </EntityType>
+        <EntityType Name="CATEGORIA">
+          <Key>
+            <PropertyRef Name="IDE_CAT" />
+          </Key>
+          <Property Name="IDE_CAT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DES_CAT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ACTIVO" Relationship="Self.FK__ACTIVO__IDE_CAT__2B3F6F97" FromRole="CATEGORIA" ToRole="ACTIVO" />
+        </EntityType>
+        <EntityType Name="DETALLESOLICITUD">
+          <Key>
+            <PropertyRef Name="IDE_DET" />
+          </Key>
+          <Property Name="IDE_DET" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NUM_SOL" Type="Int32" />
+          <Property Name="IDE_ACT" Type="Int32" />
+          <Property Name="CAN_ART" Type="Int32" />
+          <NavigationProperty Name="ACTIVO" Relationship="Self.FK__DETALLESO__IDE_A__34C8D9D1" FromRole="DETALLESOLICITUD" ToRole="ACTIVO" />
+          <NavigationProperty Name="SOLICITUD" Relationship="Self.FK__DETALLESO__NUM_S__33D4B598" FromRole="DETALLESOLICITUD" ToRole="SOLICITUD" />
+        </EntityType>
+        <EntityType Name="DISTRITO">
+          <Key>
+            <PropertyRef Name="IDE_DIS" />
+          </Key>
+          <Property Name="IDE_DIS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DES_DIS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TRABAJADOR" Relationship="Self.FK__TRABAJADO__IDE_D__2E1BDC42" FromRole="DISTRITO" ToRole="TRABAJADOR" />
+        </EntityType>
+        <EntityType Name="MARCAS">
+          <Key>
+            <PropertyRef Name="IDE_MAR" />
+          </Key>
+          <Property Name="IDE_MAR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DES_MAR" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ACTIVO" Relationship="Self.FK__ACTIVO__IDE_MAR__2A4B4B5E" FromRole="MARCAS" ToRole="ACTIVO" />
+        </EntityType>
+        <EntityType Name="SOLICITUD">
+          <Key>
+            <PropertyRef Name="NUM_SOL" />
+          </Key>
+          <Property Name="NUM_SOL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FEC_SOL" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IDE_TRA" Type="Int32" />
+          <NavigationProperty Name="DETALLESOLICITUD" Relationship="Self.FK__DETALLESO__NUM_S__33D4B598" FromRole="SOLICITUD" ToRole="DETALLESOLICITUD" />
+          <NavigationProperty Name="TRABAJADOR" Relationship="Self.FK__SOLICITUD__IDE_T__30F848ED" FromRole="SOLICITUD" ToRole="TRABAJADOR" />
+          <Property Name="EST_SOL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TRABAJADOR">
+          <Key>
+            <PropertyRef Name="IDE_TRA" />
+          </Key>
+          <Property Name="IDE_TRA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOM_TRA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APE_TRA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DIR_TRA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TEL_TRA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDE_DIS" Type="Int32" />
+          <Property Name="COR_TRA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IMG_VEN" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="DISTRITO" Relationship="Self.FK__TRABAJADO__IDE_D__2E1BDC42" FromRole="TRABAJADOR" ToRole="DISTRITO" />
+          <NavigationProperty Name="SOLICITUD" Relationship="Self.FK__SOLICITUD__IDE_T__30F848ED" FromRole="TRABAJADOR" ToRole="SOLICITUD" />
+        </EntityType>
+        <Association Name="FK__ACTIVO__IDE_CAT__2B3F6F97">
+          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="0..1" />
+          <End Role="ACTIVO" Type="Self.ACTIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIA">
+              <PropertyRef Name="IDE_CAT" />
+            </Principal>
+            <Dependent Role="ACTIVO">
+              <PropertyRef Name="IDE_CAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ACTIVO__IDE_MAR__2A4B4B5E">
+          <End Role="MARCAS" Type="Self.MARCAS" Multiplicity="0..1" />
+          <End Role="ACTIVO" Type="Self.ACTIVO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARCAS">
+              <PropertyRef Name="IDE_MAR" />
+            </Principal>
+            <Dependent Role="ACTIVO">
+              <PropertyRef Name="IDE_MAR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLESO__IDE_A__34C8D9D1">
+          <End Role="ACTIVO" Type="Self.ACTIVO" Multiplicity="0..1" />
+          <End Role="DETALLESOLICITUD" Type="Self.DETALLESOLICITUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACTIVO">
+              <PropertyRef Name="IDE_ACT" />
+            </Principal>
+            <Dependent Role="DETALLESOLICITUD">
+              <PropertyRef Name="IDE_ACT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLESO__NUM_S__33D4B598">
+          <End Role="SOLICITUD" Type="Self.SOLICITUD" Multiplicity="0..1" />
+          <End Role="DETALLESOLICITUD" Type="Self.DETALLESOLICITUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOLICITUD">
+              <PropertyRef Name="NUM_SOL" />
+            </Principal>
+            <Dependent Role="DETALLESOLICITUD">
+              <PropertyRef Name="NUM_SOL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TRABAJADO__IDE_D__2E1BDC42">
+          <End Role="DISTRITO" Type="Self.DISTRITO" Multiplicity="0..1" />
+          <End Role="TRABAJADOR" Type="Self.TRABAJADOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISTRITO">
+              <PropertyRef Name="IDE_DIS" />
+            </Principal>
+            <Dependent Role="TRABAJADOR">
+              <PropertyRef Name="IDE_DIS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SOLICITUD__IDE_T__30F848ED">
+          <End Role="TRABAJADOR" Type="Self.TRABAJADOR" Multiplicity="0..1" />
+          <End Role="SOLICITUD" Type="Self.SOLICITUD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRABAJADOR">
+              <PropertyRef Name="IDE_TRA" />
+            </Principal>
+            <Dependent Role="SOLICITUD">
+              <PropertyRef Name="IDE_TRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_ActivoFijosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ACTIVO" EntityType="Self.ACTIVO" />
+          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" />
+          <EntitySet Name="DETALLESOLICITUD" EntityType="Self.DETALLESOLICITUD" />
+          <EntitySet Name="DISTRITO" EntityType="Self.DISTRITO" />
+          <EntitySet Name="MARCAS" EntityType="Self.MARCAS" />
+          <EntitySet Name="SOLICITUD" EntityType="Self.SOLICITUD" />
+          <EntitySet Name="TRABAJADOR" EntityType="Self.TRABAJADOR" />
+          <AssociationSet Name="FK__ACTIVO__IDE_CAT__2B3F6F97" Association="Self.FK__ACTIVO__IDE_CAT__2B3F6F97">
+            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+            <End Role="ACTIVO" EntitySet="ACTIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ACTIVO__IDE_MAR__2A4B4B5E" Association="Self.FK__ACTIVO__IDE_MAR__2A4B4B5E">
+            <End Role="MARCAS" EntitySet="MARCAS" />
+            <End Role="ACTIVO" EntitySet="ACTIVO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLESO__IDE_A__34C8D9D1" Association="Self.FK__DETALLESO__IDE_A__34C8D9D1">
+            <End Role="ACTIVO" EntitySet="ACTIVO" />
+            <End Role="DETALLESOLICITUD" EntitySet="DETALLESOLICITUD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLESO__NUM_S__33D4B598" Association="Self.FK__DETALLESO__NUM_S__33D4B598">
+            <End Role="SOLICITUD" EntitySet="SOLICITUD" />
+            <End Role="DETALLESOLICITUD" EntitySet="DETALLESOLICITUD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TRABAJADO__IDE_D__2E1BDC42" Association="Self.FK__TRABAJADO__IDE_D__2E1BDC42">
+            <End Role="DISTRITO" EntitySet="DISTRITO" />
+            <End Role="TRABAJADOR" EntitySet="TRABAJADOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SOLICITUD__IDE_T__30F848ED" Association="Self.FK__SOLICITUD__IDE_T__30F848ED">
+            <End Role="TRABAJADOR" EntitySet="TRABAJADOR" />
+            <End Role="SOLICITUD" EntitySet="SOLICITUD" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_ActivoFijosModelStoreContainer" CdmEntityContainer="BD_ActivoFijosEntities">
+          <EntitySetMapping Name="ACTIVO">
+            <EntityTypeMapping TypeName="BD_ActivoFijosModel.ACTIVO">
+              <MappingFragment StoreEntitySet="ACTIVO">
+                <ScalarProperty Name="IDE_ACT" ColumnName="IDE_ACT" />
+                <ScalarProperty Name="DES_ACT" ColumnName="DES_ACT" />
+                <ScalarProperty Name="IDE_MAR" ColumnName="IDE_MAR" />
+                <ScalarProperty Name="IDE_CAT" ColumnName="IDE_CAT" />
+                <ScalarProperty Name="STO_PRO" ColumnName="STO_PRO" />
+                <ScalarProperty Name="IMG_PRO" ColumnName="IMG_PRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIA">
+            <EntityTypeMapping TypeName="BD_ActivoFijosModel.CATEGORIA">
+              <MappingFragment StoreEntitySet="CATEGORIA">
+                <ScalarProperty Name="IDE_CAT" ColumnName="IDE_CAT" />
+                <ScalarProperty Name="DES_CAT" ColumnName="DES_CAT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLESOLICITUD">
+            <EntityTypeMapping TypeName="BD_ActivoFijosModel.DETALLESOLICITUD">
+              <MappingFragment StoreEntitySet="DETALLESOLICITUD">
+                <ScalarProperty Name="IDE_DET" ColumnName="IDE_DET" />
+                <ScalarProperty Name="NUM_SOL" ColumnName="NUM_SOL" />
+                <ScalarProperty Name="IDE_ACT" ColumnName="IDE_ACT" />
+                <ScalarProperty Name="CAN_ART" ColumnName="CAN_ART" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DISTRITO">
+            <EntityTypeMapping TypeName="BD_ActivoFijosModel.DISTRITO">
+              <MappingFragment StoreEntitySet="DISTRITO">
+                <ScalarProperty Name="IDE_DIS" ColumnName="IDE_DIS" />
+                <ScalarProperty Name="DES_DIS" ColumnName="DES_DIS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MARCAS">
+            <EntityTypeMapping TypeName="BD_ActivoFijosModel.MARCAS">
+              <MappingFragment StoreEntitySet="MARCAS">
+                <ScalarProperty Name="IDE_MAR" ColumnName="IDE_MAR" />
+                <ScalarProperty Name="DES_MAR" ColumnName="DES_MAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOLICITUD">
+            <EntityTypeMapping TypeName="BD_ActivoFijosModel.SOLICITUD">
+              <MappingFragment StoreEntitySet="SOLICITUD">
+                <ScalarProperty Name="EST_SOL" ColumnName="EST_SOL" />
+                <ScalarProperty Name="NUM_SOL" ColumnName="NUM_SOL" />
+                <ScalarProperty Name="FEC_SOL" ColumnName="FEC_SOL" />
+                <ScalarProperty Name="IDE_TRA" ColumnName="IDE_TRA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRABAJADOR">
+            <EntityTypeMapping TypeName="BD_ActivoFijosModel.TRABAJADOR">
+              <MappingFragment StoreEntitySet="TRABAJADOR">
+                <ScalarProperty Name="IDE_TRA" ColumnName="IDE_TRA" />
+                <ScalarProperty Name="NOM_TRA" ColumnName="NOM_TRA" />
+                <ScalarProperty Name="APE_TRA" ColumnName="APE_TRA" />
+                <ScalarProperty Name="DIR_TRA" ColumnName="DIR_TRA" />
+                <ScalarProperty Name="TEL_TRA" ColumnName="TEL_TRA" />
+                <ScalarProperty Name="IDE_DIS" ColumnName="IDE_DIS" />
+                <ScalarProperty Name="COR_TRA" ColumnName="COR_TRA" />
+                <ScalarProperty Name="IMG_VEN" ColumnName="IMG_VEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

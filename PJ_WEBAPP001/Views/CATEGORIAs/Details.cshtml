@@ -1,0 +1,27 @@
+﻿@model PJ_WEBAPP001.Models.CATEGORIA
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Detalles de Marca : @Model.IDE_CAT</h2>
+
+<div>
+    <h4>CATEGORIA</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Descripcion Marca
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DES_CAT)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDE_CAT }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Regresar al Listado", "Index", "", new { @class = "btn btn-success" })
+</p>

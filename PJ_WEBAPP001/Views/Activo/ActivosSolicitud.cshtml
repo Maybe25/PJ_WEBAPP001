@@ -1,0 +1,108 @@
+﻿@model IEnumerable<PJ_WEBAPP001.Models.ACTIVO>
+
+@{
+    ViewBag.Title = "ActivosSolicitud";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ActivosSolicitud</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-condensed table-bordered table-hover">
+    <tr>
+        <th>Imagen</th>
+        <th>Codigo</th>
+        <th>Descripcion</th>
+        <th>Categoria</th>
+        <th>Marca</th>
+        <th>Stock</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center"><img width="100" height="100" src="@Url.Action("obtenerImagen","Activo",new { id=item.IDE_ACT })" /></td>
+            <td class="text-center"> @item.IDE_ACT</td>
+            <td> @item.DES_ACT</td>
+            <td>@item.CATEGORIA.DES_CAT</td>
+            <td>@item.MARCAS.DES_MAR</td>
+            <td> @item.STO_PRO </td>
+            <td><input type="number" class="form-control numbers" min="0" /></td>
+            <td>
+                <button class="buttonFancy agregar ">
+                    Agregar Activo
+                </button>
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            $(".agregar").on("click", function (event) {
+                event.preventDefault();
+                var ProductoId = $(this).parent().parent().find("td:eq(1)").text();
+                var cantidad = $(this).parent().parent().find("input").val();
+
+                $.ajax(
+                    {
+                        url: "@Url.Action("AgregarActivoSolicitud", "Solicitud")",
+                        data: { id: ProductoId, cantidad: cantidad },
+                        type: "post",
+                        success: function (response) {
+                            window.location.href = "@Url.Action("AgregarActivoSolicitud", "Solicitud")";
+                        },
+                        error: function (err, error) {
+                            alert(error);
+                        }
+                    }
+                );
+
+            });
+
+            $(".numbers").keydown(function (e) {
+
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 40]) !== -1 ||
+                    (e.keyCode == 65 && e.ctrlKey == true) ||
+                    (e.keyCode >= 35 && e.keyCode <= 39)) {
+                    return;
+                }
+
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+        });
+
+    </script>
+}
+
+<style>
+    .buttonFancy {
+        --offset: 10px;
+        --border-size: 2px;
+        display: block;
+        position: relative;
+        padding: 1.5em 3em;
+        border: 0;
+        background: transparent;
+        color: #e55743;
+        text-transform: uppercase;
+        letter-spacing: .25em;
+        outline: none;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 0;
+        box-shadow: inset 0 0 0 var(--border-size) currentcolor;
+        transition: background .8s ease;
+        &:hover
+    }
+</style>

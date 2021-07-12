@@ -1,0 +1,73 @@
+﻿@using PJ_WEBAPP001.Utils
+@model IEnumerable<PJ_WEBAPP001.Models.ACTIVO>
+
+@{
+    int idRol = int.Parse(SessionPersister.UserRol.ToString());
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>:::: Listado de Activos ::::::</h2>
+
+<p>
+    @Html.ActionLink("Registrar Activo", "Create", "", new { @class = "btn btn-success" })
+</p>
+<br />
+<br />
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            Descripcion de Activo
+        </th>
+        <th>
+            Stock Producto Inventario
+        </th>
+        <th>
+            Categoria
+        </th>
+        <th>
+            Marca
+        </th>
+        <th>
+            Foto
+        </th>
+        <th class="text-center">Detalle</th>
+        <th class="text-center">Actualizar</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DES_ACT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STO_PRO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CATEGORIA.DES_CAT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MARCAS.DES_MAR)
+            </td>
+            <td class="text-center">
+                <img width="100" height="100" src="@Url.Action("obtenerImagen","Activo",new { id=item.IDE_ACT })" />
+            </td>
+            @if (idRol == 1)
+            {
+            <td style="text-align:center" class="text-right">
+                <a class="btn btn-success" href="../Activo/Details/@item.IDE_ACT" title="Detalles">
+                    <i class="glyphicon glyphicon-eye-open "></i>
+                </a>
+            </td>
+            }
+            <td style="text-align:center" class="text-right">
+                <a class="btn btn-info" href="../Activo/Edit/@item.IDE_ACT" title="Editar">
+                    <i class="glyphicon glyphicon-cog"></i>
+                </a>
+            </td>
+
+        </tr>
+    }
+
+</table>

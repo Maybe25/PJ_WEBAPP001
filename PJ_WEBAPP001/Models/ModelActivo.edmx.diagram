@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="efca9369d56843818cb55c3eb07e5166" Name="Diagram1">
+        <EntityTypeShape EntityType="BD_ActivoFijosModel.ACTIVO" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_ActivoFijosModel.CATEGORIA" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_ActivoFijosModel.DETALLESOLICITUD" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_ActivoFijosModel.DISTRITO" Width="1.5" PointX="1.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_ActivoFijosModel.MARCAS" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_ActivoFijosModel.SOLICITUD" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BD_ActivoFijosModel.TRABAJADOR" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <AssociationConnector Association="BD_ActivoFijosModel.FK__ACTIVO__IDE_CAT__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_ActivoFijosModel.FK__ACTIVO__IDE_MAR__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_ActivoFijosModel.FK__DETALLESO__IDE_A__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_ActivoFijosModel.FK__DETALLESO__NUM_S__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_ActivoFijosModel.FK__TRABAJADO__IDE_D__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="BD_ActivoFijosModel.FK__SOLICITUD__IDE_T__30F848ED" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

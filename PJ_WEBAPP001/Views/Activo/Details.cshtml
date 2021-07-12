@@ -1,0 +1,57 @@
+﻿@model PJ_WEBAPP001.Models.ACTIVO
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ACTIVO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Descripcion Activo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DES_ACT)
+        </dd>
+
+        <dt>
+            Stock en Almacen
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STO_PRO)
+        </dd>
+
+        <dt>
+            Categoria
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CATEGORIA.DES_CAT)
+        </dd>
+        <dt>
+            Marca
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MARCAS.DES_MAR)
+        </dd>
+
+        <dt>
+            Foto
+        </dt>
+
+        <dd>
+            <img width="100" height="100" src="@Url.Action("obtenerImagen","Activo",new { id=Model.IDE_ACT })" />
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDE_ACT }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Regresar al Listado", "Index", "", new { @class = "btn btn-success" })
+</p>

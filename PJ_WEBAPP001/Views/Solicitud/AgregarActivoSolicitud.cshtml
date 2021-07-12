@@ -1,0 +1,69 @@
+﻿
+@{
+
+    ViewBag.Title = "AgregarActivoSolicitud";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Agregar Activos a Solicitud</h2>
+<br />
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th> Codigo </th>
+
+            <th> DESCRIPCION </th>
+
+            <th> CANTIDAD </th>
+
+            <th> CATEGORIA </th>
+            <th> MARCA </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Session["carrito"] != null)
+        {
+            foreach (var item in Session["carrito"] as List<PJ_WEBAPP001.Models.ActivosItem>)
+            {
+                <tr>
+                    <td>@item.Activo.IDE_ACT</td>
+
+                    <td>@item.Activo.DES_ACT</td>
+
+                    <td>@item.Cantidad</td>
+
+                    <td>@item.Activo.CATEGORIA.DES_CAT</td>
+                    <td>@item.Activo.MARCAS.DES_MAR</td>
+
+
+
+                    <td style="text-align:center" class="text-right">
+                        <a class="btn btn-danger" href="../Solicitud/Delete/@item.Activo.IDE_ACT" title="Eliminar">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </td>
+                    @*<td>@Html.ActionLink("Eliminar", "Delete", "Carrito", new { Id = item.Producto.IDE_PRO }, null) </td>*@
+                </tr>
+            }
+        }
+    </tbody>
+
+
+
+    <tr>
+        <th colspan="6">Eliga Trabajador a Asignar Activo </th>
+        @*<th>@Html.DropDownList("IDE_TRA", null, "Seleccione", htmlAttributes: new { @class = "form-control", @value = "IDE_TRA" })</th>*@
+        <th> @Html.DropDownList("IDE_TRA",(SelectList)ViewBag.IDE_TRABA)</th>
+    </tr>
+
+</table>
+
+<br />
+<div id="menusFooter">
+    @Html.ActionLink("Regresar Lista Activos", "ActivosSolicitud", "Activo", null, new { @class = "btn btn-danger" })
+
+    @Html.ActionLink("Finalizar Solicitud", "FinalizarSolicitud", "Solicitud",new {trabajador =  4}, new { @class = "btn btn-success" })
+</div>

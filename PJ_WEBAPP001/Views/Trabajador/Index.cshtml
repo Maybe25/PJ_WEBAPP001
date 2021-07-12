@@ -1,0 +1,89 @@
+﻿@using PJ_WEBAPP001.Utils
+@model IEnumerable<PJ_WEBAPP001.Models.TRABAJADOR>
+
+@{
+    int idRol = int.Parse(SessionPersister.UserRol.ToString());
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">::::: Gestion de Trabajadores :::::</h2>
+
+<p>
+    @Html.ActionLink("Agregar Trabajador", "Create", null, new { @class = "btn btn-success" })
+</p>
+
+<br />
+<br />
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Nombres Completos
+        </th>
+        <th>
+            Direccion
+        </th>
+        <th>
+            Telefono
+        </th>
+        <th>
+            Distrito
+        </th>
+        <th>
+            Correo
+        </th>
+        <th>
+            Foto
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDE_TRA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NOM_TRA)
+                @Html.DisplayFor(modelItem => item.APE_TRA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DIR_TRA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TEL_TRA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DISTRITO.DES_DIS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COR_TRA)
+            </td>
+            <td class="text-center">
+                <img width="100" height="100" src="@Url.Action("obtenerImagen","Trabajador",new { id=item.IDE_TRA })" />
+            </td>
+            
+                @if (idRol == 1)
+                {
+                    <td style="text-align:center" class="text-right">
+                        <a class="btn btn-info" href="../Trabajador/Edit/@item.IDE_TRA" title="Editar">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        </a>
+                    </td>
+                        
+                }
+
+                <td style="text-align:center" class="text-right">
+                          <a class="btn btn-success" href="../Trabajador/Details/@item.IDE_TRA" title="Detalles">
+                          <i class="glyphicon glyphicon-eye-open "></i>
+                          </a>
+                </td> 
+            
+        </tr>
+    }
+
+</table>
